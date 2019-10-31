@@ -48,6 +48,7 @@ const validateEmployee = [
     check('empcode').not().isEmpty().trim().escape().isLength({ min: 5 , max:5 }).custom((value, { req }) => {
         if (!value.startsWith("EMP")  ) {
           throw new Error('Empcode much start with EMP');
+          
         }
         return true;
       })
@@ -55,7 +56,8 @@ const validateEmployee = [
     check('salary').not().isEmpty().trim().escape()
     .isLength({ min: 5 }).withMessage('must be at least 5 chars long')
     // .matches(/\d/).withMessage('must contain a number')
-    .matches(/^\d+$/).withMessage('must be only number')
+    //.matches(/^\d+$/).withMessage('must be only number')
+    .isNumeric().withMessage('must be only number')
     ,
     sanitizeBody('notifyOnReply').toBoolean()
   ] ;
