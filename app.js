@@ -8,6 +8,8 @@ const bodyparser = require('body-parser');
 var employeesRouter = require('./routes/employees');
 const users = require('./routes/users');
 var jwt = require('jsonwebtoken');
+const cors = require('cors');
+app.use(cors());
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
@@ -27,7 +29,7 @@ app.use('/users', users);
 // private route
 // access by send x-access-token in header 
 
-app.use('/employees', employeesRouter);
+app.use('/employees',validateUser , employeesRouter);
 
 
 function validateUser(req, res, next) {
